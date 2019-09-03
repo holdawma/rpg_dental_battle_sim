@@ -58,8 +58,8 @@ CHOOSE AN OPTION:
         elif player_move == "2" or player_move == "heal":
             heal_move = input("""------------------------------
 CHOOSE A HEAL:
-    1) Heal 1
-    2) Heal 2
+    1) Brush Teeth
+    2) Mouthwash
     3) Heal 3
 ------------------------------
 """).strip().lower()
@@ -67,7 +67,7 @@ CHOOSE A HEAL:
                 if player_mana >= 5:
                     player_mana -= 5
                     player_hp += 20
-                    print("You used Heal 1 and regenerated 20 Health!")
+                    print("You used Brush Teeth and regenerated 20 Health!")
                     player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                 else:
                     print("You do not have enough mana to use this heal")
@@ -75,7 +75,7 @@ CHOOSE A HEAL:
                 if player_mana >= 10:
                     player_mana -= 10
                     player_hp += 40
-                    print("You used Heal 2 and regenerated 40 Health!")
+                    print("You used Mouthwash and regenerated 40 Health!")
                     player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                 else:
                     print("You do not have enough mana to use this heal")
@@ -92,29 +92,29 @@ CHOOSE A HEAL:
         elif player_move == "3" or player_move == "specialability":
             special_move = input("""------------------------------
 CHOOSE AN ABILITY:
-    1) Ability 1
-    2) Ability 2
-    3) Ability 3
+    1) Floss
+    2) Restock Toothpaste
+    3) Reduce Sugar
 ------------------------------
 """).strip().lower()
-            if special_move == "1" or special_move == "ability1":
+            if special_move == "1":
                 if player_mana >= 15:
                     player_mana -= 10
                     enemy_hp -= 30
-                    print("You used Ability 1 and dealt 30 damage!")
+                    print("You used Floss and dealt 30 damage!")
                     player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                 else:
                     print("You do not have enough mana to use this ability")
-            elif special_move == "2" or special_move == "ability2":
+            elif special_move == "2":
                 player_mana += 10
-                print("You used Ability 2 and regenerated 10 mana!")
+                print("You used Restock Toothpaste and regenerated 10 mana!")
                 player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
-            elif special_move == "3" or special_move == "ability3":
+            elif special_move == "3":
                 if player_mana >= 20:
                     player_mana -= 20
                     player_hp += 15
                     enemy_hp -= 15
-                    print("You used Ability 3, regenerated 15 health and dealt 15 damage!")
+                    print("You used Reduce Sugar, regenerated 15 health and dealt 15 damage!")
                     player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                 else:
                     print("You do not have enough mana to use this ability")
@@ -126,7 +126,7 @@ Resistance -> The percentage that damage received is reduced by, special abiliti
 
 Damage -> How much damage regular attacks deal, this can vary by up to 5 damage higher or lower than the shown value.
 
-Mana -> Special abilities use mana, if the unit does not have enough mana to use a special ability then it cannot be used. Mana does not regenerate between battles passively.
+Mana -> Special abilities use mana, if the unit does not have enough mana to use a special ability then it cannot be used.
 ------------------------------
 """)
         else:
@@ -143,9 +143,22 @@ Mana -> Special abilities use mana, if the unit does not have enough mana to use
 
         
 
+print("""  _____             _        _   _    _             _                         
+ |  __ \           | |      | | | |  | |           (_)                        
+ | |  | | ___ _ __ | |_ __ _| | | |__| |_   _  __ _ _  ___ _ __   ___         
+ | |  | |/ _ \ '_ \| __/ _` | | |  __  | | | |/ _` | |/ _ \ '_ \ / _ \        
+ | |__| |  __/ | | | || (_| | | | |  | | |_| | (_| | |  __/ | | |  __/        
+ |_____/ \___|_| |_|\__\__,_|_| |_|__|_|\__, |\__, |_|\___|_| |_|\___|        
+ |  _ \      | | | | | |       / ____(_) __/ | __/ |   | |     | |            
+ | |_) | __ _| |_| |_| | ___  | (___  _ |___/_|___/   _| | __ _| |_ ___  _ __ 
+ |  _ < / _` | __| __| |/ _ \  \___ \| | '_ ` _ \| | | | |/ _` | __/ _ \| '__|
+ | |_) | (_| | |_| |_| |  __/  ____) | | | | | | | |_| | | (_| | || (_) | |   
+ |____/ \__,_|\__|\__|_|\___| |_____/|_|_| |_| |_|\__,_|_|\__,_|\__\___/|_|   
+                                                                              
+                                                                              """)
 print("Welcome to the Dental Hygiene Battle Simulator")
 time.sleep(1.5)
-print("You are being attacked by an Evil Milkshake")
+print("Look out!\nYou are being attacked by an Evil Milkshake!")
 time.sleep(2)
 player_hp, player_rst, player_dmg, player_mana = battle(100, 10, 20, 50, "Evil Milkshake", 50, 10, 15, 25)
 print("""PLAYER STATS:
