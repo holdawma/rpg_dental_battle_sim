@@ -9,6 +9,7 @@ import time
 
 def battle(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana):
     """The function that is called when the player is in a battle"""
+
     def enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana):
         """Simulates the enemy's turn in the battle"""
         if player_hp < enemy_dmg - enemy_dmg*(player_rst/100)-5:
@@ -49,66 +50,114 @@ CHOOSE AN OPTION:
     4) Info
 ------------------------------
 """.format(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)).strip().lower()
+
+        # Attack Move
         if player_move == "1" or player_move == "attack":
             attack_dmg = random.randint(-5, 5)+ player_dmg
             attack_dmg -= round((enemy_rst/100)* attack_dmg)
             print("You attacked {} and dealt {} damage!".format(enemy_name, attack_dmg))
             enemy_hp -= attack_dmg
             player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+
+        # Heal Move
         elif player_move == "2" or player_move == "heal":
-            heal_move = input("""------------------------------
+            yes = True
+            while yes:
+                heal_move = input("""------------------------------
 CHOOSE A HEAL:
+
     1) Brush Teeth
     2) Mouthwash
-    3) Heal 3
+    3) Visit Dentist
+
+    4) Info
+    5) Cancel
+    
 ------------------------------
 """).strip().lower()
-            if heal_move == "1" or heal_move == "heal1":
-                if player_mana >= 5:
-                    player_mana -= 5
-                    player_hp += 20
-                    print("You used Brush Teeth and regenerated 20 Health!")
-                    player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+
+                # Brush Teeth move
+                if heal_move == "1":
+                    if player_mana >= 5:
+                        player_mana -= 5
+                        player_hp += 20
+                        print("You used Brush Teeth and regenerated 20 Health!")
+                        yes = False
+                        player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+                    else:
+                        print("You do not have enough mana to use this heal")
+
+                # Mouthwash Move
+                elif heal_move == "2":
+                    if player_mana >= 10:
+                        player_mana -= 10
+                        player_hp += 40
+                        print("You used Mouthwash and regenerated 40 Health!")
+                        yes = False
+                        player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+                    else:
+                        print("You do not have enough mana to use this heal")
+
+                # Visit Dentist Move
+                elif heal_move == "3":
+                    if player_mana >= 15:
+                        player_mana -= 15
+                        player_hp += 60
+                        print("You used Visit Dentist and regenerated 60 Health!")
+                        yes = False
+                        player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+                    else:
+                        print("You do not have enough mana to use this heal")
+                        
+                elif heal_move == "4":
+                    print("""------------------------------
+    1) Brush Teeth
+       - Costs 5 mana
+       - Regenerates 20 Health
+       
+    2) Mouthwash
+       - Costs 10 mana
+       - Regenerates 40 Health
+       
+    3) Visit Dentist
+       - Costs 15 mana
+       - Regenerates 60 Health
+       """)
+                elif heal_move == "5":
+                    again = False
+                    
                 else:
-                    print("You do not have enough mana to use this heal")
-            elif heal_move == "2" or heal_move == " heal2":
-                if player_mana >= 10:
-                    player_mana -= 10
-                    player_hp += 40
-                    print("You used Mouthwash and regenerated 40 Health!")
-                    player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
-                else:
-                    print("You do not have enough mana to use this heal")
-            elif heal_move == "3" or heal_move == "heal3":
-                if player_mana >= 15:
-                    player_mana -= 15
-                    player_hp += 60
-                    print("You used Heal 3 and regenerated 60 Health!")
-                    player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
-                else:
-                    print("You do not have enough mana to use this heal")
-            else:
-                print("Please enter 1, 2 or 3")
+                    print("Please enter 1, 2 or 3")
+        # Special Ability Move
         elif player_move == "3" or player_move == "specialability":
             special_move = input("""------------------------------
 CHOOSE AN ABILITY:
     1) Floss
     2) Restock Toothpaste
     3) Reduce Sugar
+
+    4) Info
+    5) Cancel
 ------------------------------
 """).strip().lower()
+
+            # Floss Move
             if special_move == "1":
                 if player_mana >= 15:
-                    player_mana -= 10
+                    player_mana -= 15
                     enemy_hp -= 30
                     print("You used Floss and dealt 30 damage!")
                     player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                 else:
                     print("You do not have enough mana to use this ability")
+
+            # Restock Toothpast Move
             elif special_move == "2":
                 player_mana += 10
                 print("You used Restock Toothpaste and regenerated 10 mana!")
                 player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+
+            # Reduce Sugar Move
             elif special_move == "3":
                 if player_mana >= 20:
                     player_mana -= 20
@@ -118,6 +167,8 @@ CHOOSE AN ABILITY:
                     player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                 else:
                     print("You do not have enough mana to use this ability")
+
+        # Info panel
         elif player_move == "4" or player_move == "info":
             print("""------------------------------
 Health -> How much health the unit has, when this is 0, the unit dies.
@@ -131,7 +182,8 @@ Mana -> Special abilities use mana, if the unit does not have enough mana to use
 """)
         else:
             print("Please enter either 1, 2, 3 or 4")
-            
+
+        # Conditions to end battle
         if player_hp <= 0:
             again = False
             print("You lost the battle!")
@@ -143,7 +195,7 @@ Mana -> Special abilities use mana, if the unit does not have enough mana to use
 
         
 
-print("""  _____             _        _   _    _             _                         
+print("""  _____             _        _   _    _             _
  |  __ \           | |      | | | |  | |           (_)                        
  | |  | | ___ _ __ | |_ __ _| | | |__| |_   _  __ _ _  ___ _ __   ___         
  | |  | |/ _ \ '_ \| __/ _` | | |  __  | | | |/ _` | |/ _ \ '_ \ / _ \        
