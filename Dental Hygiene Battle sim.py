@@ -3,6 +3,7 @@
 # On: 29/08/19
 # V0.1: 29/08/19
 # v0.5: 02/09/19
+# v0.62: 09/09/19
 
 import random
 import time
@@ -124,7 +125,8 @@ CHOOSE A HEAL:
        - Regenerates 60 Health
        """)
                 elif heal_move == "5":
-                    again = False
+                    #player_move = 0
+                    yes = False
                     
                 else:
                     print("Please enter 1, 2 or 3")
