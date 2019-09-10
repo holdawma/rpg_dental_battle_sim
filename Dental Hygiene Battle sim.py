@@ -4,9 +4,13 @@
 # V0.1: 29/08/19
 # v0.5: 02/09/19
 # v0.62: 09/09/19
+# v0.65: 10/09/19
 
 import random
 import time
+import sys
+try: color = sys.stdout.shell
+except AttributeError: raise RuntimeError("Use IDLE")
 
 def battle(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana):
     """The function that is called when the player is in a battle"""
@@ -27,6 +31,7 @@ def battle(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp,
             enemy_attack -= round((player_rst/100)*enemy_attack)
             player_hp -= enemy_attack
             print("{} attacked you and dealt {} damage!".format(enemy_name, enemy_attack))
+        input("Enter to continue")
         return player_hp, player_mana, enemy_hp, enemy_mana
     again = True
     while again:
@@ -76,13 +81,19 @@ CHOOSE A HEAL:
     
 ------------------------------
 """).strip().lower()
+                def balance_healing(player_hp, heal_amount):
+                    """"A function to make sure the player does not heal up to too much health"""
+                    if player_hp + heal_amount > 100:
+                        heal_amount *= (200 - (player_hp + heal_amount)) / 100
+                    return heal_amount
 
                 # Brush Teeth move
                 if heal_move == "1":
                     if player_mana >= 5:
                         player_mana -= 5
-                        player_hp += 20
-                        print("You used Brush Teeth and regenerated 20 Health!")
+                        balanced_heal = round(balance_healing(player_hp, 20))
+                        player_hp += balanced_heal
+                        print("You used Brush Teeth and regenerated {} Health!".format(balanced_heal))
                         yes = False
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                     else:
@@ -92,8 +103,9 @@ CHOOSE A HEAL:
                 elif heal_move == "2":
                     if player_mana >= 10:
                         player_mana -= 10
-                        player_hp += 40
-                        print("You used Mouthwash and regenerated 40 Health!")
+                        balanced_heal = round(balance_healing(player_hp, 40))
+                        player_hp += balanced_heal
+                        print("You used Mouthwash and regenerated {} Health!".format(balanced_heal))
                         yes = False
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                     else:
@@ -103,8 +115,9 @@ CHOOSE A HEAL:
                 elif heal_move == "3":
                     if player_mana >= 15:
                         player_mana -= 15
-                        player_hp += 60
-                        print("You used Visit Dentist and regenerated 60 Health!")
+                        balanced_heal = round(balance_healing(player_hp, 60))
+                        player_hp += balanced_heal
+                        print("You used Visit Dentist and regenerated {} Health!".format(balanced_heal))
                         yes = False
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                     else:
