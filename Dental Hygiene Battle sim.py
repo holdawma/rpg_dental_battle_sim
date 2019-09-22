@@ -5,6 +5,7 @@
 # v0.5: 02/09/19
 # v0.62: 09/09/19
 # v0.65: 10/09/19
+# v0.66: 23/09/19
 
 import random
 import time
@@ -67,8 +68,8 @@ CHOOSE AN OPTION:
 
         # Heal Move
         elif player_move == "2" or player_move == "heal":
-            yes = True
-            while yes:
+            heal_again = True
+            while heal_again:
                 heal_move = input("""------------------------------
 CHOOSE A HEAL:
 
@@ -122,7 +123,8 @@ CHOOSE A HEAL:
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                     else:
                         print("You do not have enough mana to use this heal")
-                        
+
+                # Healing Info Panel
                 elif heal_move == "4":
                     print("""------------------------------
     1) Brush Teeth
@@ -136,16 +138,22 @@ CHOOSE A HEAL:
     3) Visit Dentist
        - Costs 15 mana
        - Regenerates 60 Health
+
+    NOTE: Healing is significantly less effective when above 100hp
        """)
+                # Cancel Option
                 elif heal_move == "5":
-                    #player_move = 0
-                    yes = False
-                    
+                    heal_again = False
+
+                # Input error detection
                 else:
                     print("Please enter 1, 2 or 3")
+                    
         # Special Ability Move
         elif player_move == "3" or player_move == "specialability":
-            special_move = input("""------------------------------
+            spec_again = True
+            while spec_again:
+                special_move = input("""------------------------------
 CHOOSE AN ABILITY:
     1) Floss
     2) Restock Toothpaste
@@ -156,32 +164,51 @@ CHOOSE AN ABILITY:
 ------------------------------
 """).strip().lower()
 
-            # Floss Move
-            if special_move == "1":
-                if player_mana >= 15:
-                    player_mana -= 15
-                    enemy_hp -= 30
-                    print("You used Floss and dealt 30 damage!")
-                    player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
-                else:
-                    print("You do not have enough mana to use this ability")
+                # Floss Move
+                if special_move == "1":
+                    if player_mana >= 15:
+                        player_mana -= 15
+                        enemy_hp -= 30
+                        print("You used Floss and dealt 30 damage!")
+                        player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+                    else:
+                        print("You do not have enough mana to use this ability")
 
-            # Restock Toothpast Move
-            elif special_move == "2":
-                player_mana += 10
-                print("You used Restock Toothpaste and regenerated 10 mana!")
-                player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
-
-            # Reduce Sugar Move
-            elif special_move == "3":
-                if player_mana >= 20:
-                    player_mana -= 20
-                    player_hp += 15
-                    enemy_hp -= 15
-                    print("You used Reduce Sugar, regenerated 15 health and dealt 15 damage!")
+                # Restock Toothpaste Move
+                elif special_move == "2":
+                    player_mana += 10
+                    print("You used Restock Toothpaste and regenerated 10 mana!")
                     player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
-                else:
-                    print("You do not have enough mana to use this ability")
+
+                # Reduce Sugar Move
+                elif special_move == "3":
+                    if player_mana >= 20:
+                        player_mana -= 20
+                        player_hp += 15
+                        enemy_hp -= 15
+                        print("You used Reduce Sugar, regenerated 15 health and dealt 15 damage!")
+                        player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+                    else:
+                        print("You do not have enough mana to use this ability")
+
+                # Special Ability Info Panel
+                elif special_move == "4":
+                    print("""------------------------------
+
+    1) Floss
+        - Costs 15 Mana
+        - Deals 30 Damage
+
+    2) Restock Toothpaste
+        - Regenerates 10 mana
+
+    3) Reduce Sugar
+        - Costs 20 Mana
+        - Deals 15 Damage
+        - Regenerates 15 Health
+""")
+                elif special_move == "5":
+                    spec_again = False
 
         # Info panel
         elif player_move == "4" or player_move == "info":
@@ -203,6 +230,7 @@ Mana -> Special abilities use mana, if the unit does not have enough mana to use
             again = False
             print("You lost the battle!")
             return player_hp, player_rst, player_dmg, player_mana
+        
         elif enemy_hp <= 0:
             again = False
             print("You won the battle!")
@@ -234,3 +262,5 @@ print("""PLAYER STATS:
     Damage: {}
     Mana: {}
 """.format(player_hp, player_rst, player_dmg, player_mana))
+
+
