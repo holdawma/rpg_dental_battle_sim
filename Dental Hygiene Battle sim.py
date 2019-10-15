@@ -6,6 +6,7 @@
 # v0.62: 09/09/19
 # v0.65: 10/09/19
 # v0.66: 23/09/19
+# v0.67: 15/10/19
 
 import random
 import time
@@ -138,7 +139,6 @@ CHOOSE A HEAL:
     3) Visit Dentist
        - Costs 15 mana
        - Regenerates 60 Health
-
     NOTE: Healing is significantly less effective when above 100hp
        """)
                 # Cancel Option
@@ -236,7 +236,12 @@ Mana -> Special abilities use mana, if the unit does not have enough mana to use
             print("You won the battle!")
             return player_hp, player_rst, player_dmg, player_mana
 
-        
+def items():
+    """A function to let the user choose items to upgrade their character"""
+    selected_items = []
+    for i in range(0, 3):
+        selected_items.append(random.randint(1, 10-i))
+        print(10-i)
 
 print("""  _____             _        _   _    _             _
  |  __ \           | |      | | | |  | |           (_)                        
@@ -262,5 +267,7 @@ print("""PLAYER STATS:
     Damage: {}
     Mana: {}
 """.format(player_hp, player_rst, player_dmg, player_mana))
+
+
 
 
