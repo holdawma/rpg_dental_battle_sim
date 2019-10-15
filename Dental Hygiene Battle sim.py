@@ -24,7 +24,7 @@ def battle(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp,
             enemy_attack -= round((player_rst/100)*enemy_attack)
             player_hp -= enemy_attack
             print("{} attacked you and dealt {} damage!".format(enemy_name, enemy_attack))
-        elif enemy_hp <= player_dmg*(enemy_rst/100)-5 and enemy_mana >= 5:
+        elif enemy_hp <= player_dmg*(enemy_rst/100)-5 and enemy_mana > 4:
             enemy_mana -= 5
             enemy_hp += 20
             print("{} healed for 20 hp!".format(enemy_name))
@@ -96,7 +96,7 @@ CHOOSE A HEAL:
                         balanced_heal = round(balance_healing(player_hp, 20))
                         player_hp += balanced_heal
                         print("You used Brush Teeth and regenerated {} Health!".format(balanced_heal))
-                        yes = False
+                        heal_again = False
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                     else:
                         print("You do not have enough mana to use this heal")
@@ -108,7 +108,7 @@ CHOOSE A HEAL:
                         balanced_heal = round(balance_healing(player_hp, 40))
                         player_hp += balanced_heal
                         print("You used Mouthwash and regenerated {} Health!".format(balanced_heal))
-                        yes = False
+                        heal_again = False
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                     else:
                         print("You do not have enough mana to use this heal")
@@ -120,7 +120,7 @@ CHOOSE A HEAL:
                         balanced_heal = round(balance_healing(player_hp, 60))
                         player_hp += balanced_heal
                         print("You used Visit Dentist and regenerated {} Health!".format(balanced_heal))
-                        yes = False
+                        heal_again = False
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
                     else:
                         print("You do not have enough mana to use this heal")
@@ -147,7 +147,7 @@ CHOOSE A HEAL:
 
                 # Input error detection
                 else:
-                    print("Please enter 1, 2 or 3")
+                    print("Please enter 1, 2, 3, 4 or 5")
                     
         # Special Ability Move
         elif player_move == "3" or player_move == "specialability":
@@ -171,6 +171,7 @@ CHOOSE AN ABILITY:
                         enemy_hp -= 30
                         print("You used Floss and dealt 30 damage!")
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+                        spec_again = False
                     else:
                         print("You do not have enough mana to use this ability")
 
@@ -179,6 +180,7 @@ CHOOSE AN ABILITY:
                     player_mana += 10
                     print("You used Restock Toothpaste and regenerated 10 mana!")
                     player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+                    spec_again = False
 
                 # Reduce Sugar Move
                 elif special_move == "3":
@@ -188,6 +190,7 @@ CHOOSE AN ABILITY:
                         enemy_hp -= 15
                         print("You used Reduce Sugar, regenerated 15 health and dealt 15 damage!")
                         player_hp, player_mana, enemy_hp, enemy_mana = enemy_turn(player_hp, player_rst, player_dmg, player_mana, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mana)
+                        spec_again = False
                     else:
                         print("You do not have enough mana to use this ability")
 
@@ -238,10 +241,10 @@ Mana -> Special abilities use mana, if the unit does not have enough mana to use
 
 def items():
     """A function to let the user choose items to upgrade their character"""
+    all_items = {"hp_boost" : player_hp}
     selected_items = []
     for i in range(0, 3):
         selected_items.append(random.randint(1, 10-i))
-        print(10-i)
 
 print("""  _____             _        _   _    _             _
  |  __ \           | |      | | | |  | |           (_)                        
