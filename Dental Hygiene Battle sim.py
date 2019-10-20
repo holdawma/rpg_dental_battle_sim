@@ -263,14 +263,6 @@ Mana -> Special abilities and heals use mana, if the unit does not have enough m
 
 def items(player_max_hp, player_rst, player_dmg, player_max_mp):
     """A function to let the user choose items to upgrade their character"""
-
-    # Showing the player their current stats
-    print("""PLAYER STATS:
-        Max Health: {}
-        Resistance: {}
-        Damage: {}
-        Max Mana: {}
-    """.format(player_max_hp, player_rst, player_dmg, player_max_mp))
     
     # Dictionary with all items in it
     all_items = {1 : ("Toothbrush of the Strong", 20, 5, -5, 0), 2 : ("Sharp Fillings", 0, 0, 10, -10),
@@ -294,40 +286,41 @@ def items(player_max_hp, player_rst, player_dmg, player_max_mp):
     # Print statement for items
     item_printing = """------------------------------
 Choose one of the items displayed below:
-Note: Stat values displayed are total values after item selection
 
     1) {item1}
-        Max Health :{i1hp}
-        Resistance :{i1rst}
-        Damage     :{i1dmg}
-        Max Mana   :{i1mp}
+        Max Health :{currenthp} -> {i1hp}
+        Resistance :{currentrst} -> {i1rst}
+        Damage     :{currentdmg} -> {i1dmg}
+        Max Mana   :{currentmp} -> {i1mp}
         
     2) {item2}
     
-        Max Health :{i2hp}
-        Resistance :{i2rst}
-        Damage     :{i2dmg}
-        Max Mana   :{i2mp}
+        Max Health :{currenthp} -> {i2hp}
+        Resistance :{currentrst} -> {i2rst}
+        Damage     :{currentdmg} -> {i2dmg}
+        Max Mana   :{currentmp} -> {i2mp}
 
     3) {item3}
     
-        Max Health :{i3hp}
-        Resistance :{i3rst}
-        Damage     :{i3dmg}
-        Max Mana   :{i3mp}
+        Max Health :{currenthp} -> {i3hp}
+        Resistance :{currentrst} -> {i3rst}
+        Damage     :{currentdmg} -> {i3dmg}
+        Max Mana   :{currentmp} -> {i3mp}
 ------------------------------""".format(item1 = all_items[selected_items[0]][0], item2 = all_items[selected_items[1]][0], item3 = all_items[selected_items[2]][0],
                                          i1hp = player_max_hp + all_items[selected_items[0]][1], i1rst = player_rst + all_items[selected_items[0]][2],
                                          i1dmg = player_dmg + all_items[selected_items[0]][3], i1mp = player_max_mp + all_items[selected_items[0]][4],
                                          i2hp = player_max_hp + all_items[selected_items[1]][1], i2rst = player_rst + all_items[selected_items[1]][2],
                                          i2dmg = player_dmg + all_items[selected_items[1]][3], i2mp = player_max_mp + all_items[selected_items[1]][4],
                                          i3hp = player_max_hp + all_items[selected_items[2]][1], i3rst = player_rst + all_items[selected_items[2]][2],
-                                         i3dmg = player_dmg + all_items[selected_items[2]][3], i3mp = player_max_mp + all_items[selected_items[2]][4])
+                                         i3dmg = player_dmg + all_items[selected_items[2]][3], i3mp = player_max_mp + all_items[selected_items[2]][4],
+                                         currenthp = player_max_hp, currentrst = player_rst, currentdmg =  player_dmg, currentmp =  player_max_mp)
     
     print(item_printing)
 
-    item_choice = input()
+    # Item selection
     again = True
     while again:
+        item_choice = input()
         if item_choice == "1":
             player_max_hp += all_items[selected_items[0]][1]
             player_rst += all_items[selected_items[0]][2]
@@ -348,6 +341,7 @@ Note: Stat values displayed are total values after item selection
             again = False
         else:
             print("Please enter either 1, 2, or 3")
+            
     print("""PLAYER STATS:
         Max Health: {}
         Resistance: {}
