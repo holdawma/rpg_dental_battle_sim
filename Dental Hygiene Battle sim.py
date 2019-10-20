@@ -62,7 +62,9 @@ CHOOSE AN OPTION:
     3) Special Ability
     4) Info
 ------------------------------
-""".format(player_hp = player_hp, player_max_hp = player_max_hp, player_rst = player_rst, player_dmg = player_dmg, player_mp = player_mp, player_max_mp = player_max_mp, enemy_name = enemy_name, enemy_hp = enemy_hp, enemy_max_hp = enemy_max_hp, enemy_rst = enemy_rst, enemy_dmg = enemy_dmg, enemy_mp = enemy_mp, enemy_max_mp = enemy_max_mp)).strip().lower()
+""".format(player_hp = player_hp, player_max_hp = player_max_hp, player_rst = player_rst, player_dmg = player_dmg,
+           player_mp = player_mp, player_max_mp = player_max_mp, enemy_name = enemy_name, enemy_hp = enemy_hp, enemy_max_hp = enemy_max_hp,
+           enemy_rst = enemy_rst, enemy_dmg = enemy_dmg, enemy_mp = enemy_mp, enemy_max_mp = enemy_max_mp)).strip().lower()
 
 #--------------------------------------------------------------------------------------Attack Move-------------------------------------------------------------------------------------------
         if player_move == "1" or player_move == "attack":
@@ -271,7 +273,11 @@ def items(player_max_hp, player_rst, player_dmg, player_max_mp):
     """.format(player_max_hp, player_rst, player_dmg, player_max_mp))
     
     # Dictionary with all items in it
-    all_items = {1 : ("Toothbrush of the Strong", 20, 5, -5, 0), 2 : ("Sharp Fillings", 0, 0, 10, -10), 3 : ("Hardened Braces", 15, 0, 0, -10), 4 : ("Arcane Floss", 0, -5, 0, 15), 5 : ("Mouthwash of Resistance", -20, 15, 0, 0), 6 : ("Ethereal Floss", 0, 15, -5, -10), 7 : ("Soul Fillings", -15, 0, 10, 0), 8 : ("Braces of Power", -10, 0, 0, 20), 9 : ("Toothbrush of the Magi", 0, -5, -5, 25), 10 : ("Rite of the Orthodontist", 20, 10, 15, player_max_mp*-1)}
+    all_items = {1 : ("Toothbrush of the Strong", 20, 5, -5, 0), 2 : ("Sharp Fillings", 0, 0, 10, -10),
+                 3 : ("Hardened Braces", 15, 0, 0, -10), 4 : ("Arcane Floss", 0, -5, 0, 15),
+                 5 : ("Mouthwash of Resistance", -20, 15, 0, 0), 6 : ("Ethereal Floss", 0, 15, -5, -10),
+                 7 : ("Soul Fillings", -15, 0, 10, 0), 8 : ("Braces of Power", -10, 0, 0, 20),
+                 9 : ("Toothbrush of the Magi", 0, -5, -5, 25), 10 : ("Rite of the Orthodontist", 20, 10, 15, player_max_mp*-1)}
     selected_items = []
     final_items = []
     
@@ -309,7 +315,13 @@ Note: Stat values displayed are total values after item selection
         Resistance :{i3rst}
         Damage     :{i3dmg}
         Max Mana   :{i3mp}
-------------------------------""".format(item1 = all_items[selected_items[0]][0], item2 = all_items[selected_items[1]][0], item3 = all_items[selected_items[2]][0], i1hp = player_max_hp + all_items[selected_items[0]][1], i1rst = player_rst + all_items[selected_items[0]][2], i1dmg = player_dmg + all_items[selected_items[0]][3], i1mp = player_max_mp + all_items[selected_items[0]][4], i2hp = player_max_hp + all_items[selected_items[1]][1], i2rst = player_rst + all_items[selected_items[1]][2], i2dmg = player_dmg + all_items[selected_items[1]][3], i2mp = player_max_mp + all_items[selected_items[1]][4], i3hp = player_max_hp + all_items[selected_items[2]][1], i3rst = player_rst + all_items[selected_items[2]][2], i3dmg = player_dmg + all_items[selected_items[2]][3], i3mp = player_max_mp + all_items[selected_items[2]][4])
+------------------------------""".format(item1 = all_items[selected_items[0]][0], item2 = all_items[selected_items[1]][0], item3 = all_items[selected_items[2]][0],
+                                         i1hp = player_max_hp + all_items[selected_items[0]][1], i1rst = player_rst + all_items[selected_items[0]][2],
+                                         i1dmg = player_dmg + all_items[selected_items[0]][3], i1mp = player_max_mp + all_items[selected_items[0]][4],
+                                         i2hp = player_max_hp + all_items[selected_items[1]][1], i2rst = player_rst + all_items[selected_items[1]][2],
+                                         i2dmg = player_dmg + all_items[selected_items[1]][3], i2mp = player_max_mp + all_items[selected_items[1]][4],
+                                         i3hp = player_max_hp + all_items[selected_items[2]][1], i3rst = player_rst + all_items[selected_items[2]][2],
+                                         i3dmg = player_dmg + all_items[selected_items[2]][3], i3mp = player_max_mp + all_items[selected_items[2]][4])
     
     print(item_printing)
 
@@ -429,9 +441,9 @@ def main():
     time.sleep(1)
     print("You must now go and face the final boss")
     time.sleep(1)
-    print("You are being attacked by The Deadly Sweets!")
+    print("You are being attacked by Deadly Sweets!")
     time.sleep(1)
-    player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp = battle(player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp, "The Deadly Sweets", 200, 35, 30, 40)
+    player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp = battle(player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp, "Deadly Sweets", 200, 35, 30, 40)
 
     print("You successfully defended Dental Hygiene from all the evil foods!")
     print("Congratulations!")
