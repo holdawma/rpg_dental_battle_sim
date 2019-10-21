@@ -314,12 +314,11 @@ Choose one of the items displayed below:
                                          i3hp = player_max_hp + all_items[selected_items[2]][1], i3rst = player_rst + all_items[selected_items[2]][2],
                                          i3dmg = player_dmg + all_items[selected_items[2]][3], i3mp = player_max_mp + all_items[selected_items[2]][4],
                                          currenthp = player_max_hp, currentrst = player_rst, currentdmg =  player_dmg, currentmp =  player_max_mp)
-    
-    print(item_printing)
 
     # Item selection
     again = True
     while again:
+        print(item_printing)
         item_choice = input()
         if item_choice == "1":
             player_max_hp += all_items[selected_items[0]][1]
@@ -341,7 +340,11 @@ Choose one of the items displayed below:
             again = False
         else:
             print("Please enter either 1, 2, or 3")
-            
+
+    # To make sure that the player's mana is not in the negatives
+    if player_max_mp < 0:
+        player_max_mp = 0
+        
     print("""PLAYER STATS:
         Max Health: {}
         Resistance: {}
@@ -405,7 +408,7 @@ def main():
     # Third Battle
     print("You better have found that easy!")
     time.sleep(1)
-    print("The enemies are only going to get tougher!")
+    print("Because the job is not done yet! There are still many threats to Dental Hygiene for you to defeat!")
     time.sleep(1.5)
     print("Here comes a Rotten Snack Bar!")
     time.sleep(1)
@@ -418,7 +421,7 @@ def main():
     # Fourth Battle
     print("You truly are the best Dental Health defender we have ever seen")
     time.sleep(1.5)
-    print("But the job is not done yet! There are still many threats to Dental Hygiene for you to defeat!")
+    print("But the enemies are only going to get tougher!")
     time.sleep(2)
     print("You are under attack by a Wicked Bag of Crisps!")
     time.sleep(1.5)
