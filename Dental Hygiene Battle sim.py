@@ -12,6 +12,7 @@
 # v0.81: 21/10/19
 # v0.82: 22/10/19
 # v1.00: 22/10/19
+# v2.00: 23/10/19
 
 import random
 import time
@@ -28,16 +29,16 @@ def battle(player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, play
             enemy_attack = random.randint(-5, 5)+ enemy_dmg
             enemy_attack -= round((player_rst/100)*enemy_attack)
             player_hp -= enemy_attack
-            print("{} attacked you and dealt {} damage!".format(enemy_name, enemy_attack))
+            color.write("{} attacked you and dealt {} damage!\n".format(enemy_name, enemy_attack), "COMMENT")
         elif enemy_hp <= player_dmg*(enemy_rst/100)-5 and enemy_mp > 4:
             enemy_mp -= 5
             enemy_hp += 20
-            print("{} healed for 20 hp!".format(enemy_name))
+            color.write("{} healed for 20 hp!\n".format(enemy_name), "COMMENT")
         else:
             enemy_attack = random.randint(-5, 5)+ enemy_dmg
             enemy_attack -= round((player_rst/100)*enemy_attack)
             player_hp -= enemy_attack
-            print("{} attacked you and dealt {} damage!".format(enemy_name, enemy_attack))
+            color.write("{} attacked you and dealt {} damage!\n".format(enemy_name, enemy_attack), "COMMENT")
         input("Enter to continue")
         return player_hp, player_mp, enemy_hp, enemy_mp
 
@@ -73,7 +74,7 @@ CHOOSE AN OPTION:
         if player_move == "1" or player_move == "attack":
             attack_dmg = random.randint(-5, 5)+ player_dmg
             attack_dmg -= round((enemy_rst/100)* attack_dmg)
-            print("You attacked {} and dealt {} damage!".format(enemy_name, attack_dmg))
+            color.write("You attacked {} and dealt {} damage!\n".format(enemy_name, attack_dmg), "STRING")
             enemy_hp -= attack_dmg
             player_hp, player_mp, enemy_hp, enemy_mp = enemy_turn(player_hp, player_rst, player_dmg, player_mp, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mp)
 
@@ -84,9 +85,9 @@ CHOOSE AN OPTION:
                 heal_move = input("""------------------------------
 CHOOSE A HEAL:
 
-    1) Brush Teeth
-    2) Mouthwash
-    3) Visit Dentist
+    1) Brush Teeth [+20 Health][-5 Mana]
+    2) Mouthwash [+40 Health][-10 Mana]
+    3) Visit Dentist [+60 Health][-15 Mana]
 
     4) Info
     5) Cancel
@@ -101,7 +102,7 @@ CHOOSE A HEAL:
                         player_hp += 20
                         if player_hp >= player_max_hp:
                             player_hp = player_max_hp
-                        print("You used Brush Teeth and regenerated 20 Health!\nYou now have {} Health!".format(player_hp))
+                        color.write("You used Brush Teeth and regenerated 20 Health!\nYou now have {} Health!\n".format(player_hp), "STRING")
                         heal_again = False
                         player_hp, player_mp, enemy_hp, enemy_mp = enemy_turn(player_hp, player_rst, player_dmg, player_mp, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mp)
                     else:
@@ -114,7 +115,7 @@ CHOOSE A HEAL:
                         player_hp += 40
                         if player_hp >= player_max_hp:
                             player_hp = player_max_hp
-                        print("You used Mouthwash and regenerated 40 Health!\nYou now have {} Health!".format(player_hp))
+                        color.write("You used Mouthwash and regenerated 40 Health!\nYou now have {} Health!\n".format(player_hp), "STRING")
                         heal_again = False
                         player_hp, player_mp, enemy_hp, enemy_mp = enemy_turn(player_hp, player_rst, player_dmg, player_mp, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mp)
                     else:
@@ -127,7 +128,7 @@ CHOOSE A HEAL:
                         player_hp += 60
                         if player_hp >= player_max_hp:
                             player_hp = player_max_hp
-                        print("You used Visit Dentist and regenerated 60 Health!\nYou now have {} Health!".format(player_hp))
+                        color.write("You used Visit Dentist and regenerated 60 Health!\nYou now have {} Health!\n".format(player_hp), "STRING")
                         heal_again = False
                         player_hp, player_mp, enemy_hp, enemy_mp = enemy_turn(player_hp, player_rst, player_dmg, player_mp, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mp)
                     else:
@@ -164,9 +165,9 @@ CHOOSE A HEAL:
             while spec_again:
                 special_move = input("""------------------------------
 CHOOSE AN ABILITY:
-    1) Floss
-    2) Restock Toothpaste
-    3) Reduce Sugar
+    1) Floss [30 Damage][-10 Mana]
+    2) Restock Toothpaste [+10 Mana]
+    3) Reduce Sugar [20 Damage][+20 Health][-15 Mana]
 
     4) Info
     5) Cancel
@@ -178,7 +179,7 @@ CHOOSE AN ABILITY:
                     if player_mp >= 10:
                         player_mp -= 10
                         enemy_hp -= 30
-                        print("You used Floss and dealt 30 damage!")
+                        color.write("You used Floss and dealt 30 damage!\n", "STRING")
                         player_hp, player_mp, enemy_hp, enemy_mp = enemy_turn(player_hp, player_rst, player_dmg, player_mp, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mp)
                         spec_again = False
                     else:
@@ -189,7 +190,7 @@ CHOOSE AN ABILITY:
                     player_mp += 15
                     if player_mp >= player_max_mp:
                         player_mp = player_max_mp
-                    print("You used Restock Toothpaste and regenerated 10 mana!\nYou now have {} mana".format(player_mp))
+                    color.write("You used Restock Toothpaste and regenerated 15 mana!\nYou now have {} mana\n".format(player_mp), "STRING")
                     player_hp, player_mp, enemy_hp, enemy_mp = enemy_turn(player_hp, player_rst, player_dmg, player_mp, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mp)
                     spec_again = False
 
@@ -199,7 +200,7 @@ CHOOSE AN ABILITY:
                         player_mp -= 15
                         player_hp += 20
                         enemy_hp -= 20
-                        print("You used Reduce Sugar, regenerated 20 health and dealt 20 damage!")
+                        color.write("You used Reduce Sugar, regenerated 20 health and dealt 20 damage!\n", "STRING")
                         player_hp, player_mp, enemy_hp, enemy_mp = enemy_turn(player_hp, player_rst, player_dmg, player_mp, enemy_name, enemy_hp, enemy_rst, enemy_dmg, enemy_mp)
                         spec_again = False
                     else:
@@ -247,6 +248,7 @@ Mana -> Special abilities and heals use mana, if the unit does not have enough m
         if player_hp <= 0:
             again = False
             print("You lost the battle!")
+            time.sleep(1)
             for i in range(25):
                 print("\n")
             print("Try again!")
@@ -392,8 +394,12 @@ def main():
     player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp = battle(player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp, "Evil Milkshake", 50, 15, 15, 25)
     
     player_max_hp, player_rst, player_dmg, player_max_mp = items(player_max_hp, player_rst, player_dmg, player_max_mp)
-    player_hp = player_max_hp
-    player_mp = player_max_mp
+    player_hp += round(player_max_hp / 2)
+    if player_hp > player_max_hp:
+        player_hp = player_max_hp
+    player_mp += round(player_max_mp / 2)
+    if player_mp > player_max_mp:
+        player_mp = player_max_mp
 
     # Second Battle
     print("I hope you're ready for another battle")
@@ -405,8 +411,12 @@ def main():
     player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp = battle(player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp, "Corrupt Soda", 50, 40, 20, 40)
 
     player_max_hp, player_rst, player_dmg, player_max_mp = items(player_max_hp, player_rst, player_dmg, player_max_mp)
-    player_hp = player_max_hp
-    player_mp = player_max_mp
+    player_hp += round(player_max_hp / 2)
+    if player_hp > player_max_hp:
+        player_hp = player_max_hp
+    player_mp += round(player_max_mp / 2)
+    if player_mp > player_max_mp:
+        player_mp = player_max_mp
 
     # Third Battle
     print("You better have found that easy!")
@@ -418,8 +428,12 @@ def main():
     player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp = battle(player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp, "Rotten Snack Bar", 100, 20, 30, 50)
     
     player_max_hp, player_rst, player_dmg, player_max_mp = items(player_max_hp, player_rst, player_dmg, player_max_mp)
-    player_hp = player_max_hp
-    player_mp = player_max_mp
+    player_hp += round(player_max_hp / 2)
+    if player_hp > player_max_hp:
+        player_hp = player_max_hp
+    player_mp += round(player_max_mp / 2)
+    if player_mp > player_max_mp:
+        player_mp = player_max_mp
 
     # Fourth Battle
     print("You truly are the best Dental Health defender we have ever seen")
@@ -431,15 +445,19 @@ def main():
     player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp = battle(player_max_hp, player_hp, player_rst, player_dmg, player_max_mp, player_mp, "Wicked Bag of Crisps", 200, 0, 25, 20)
 
     player_max_hp, player_rst, player_dmg, player_max_mp = items(player_max_hp, player_rst, player_dmg, player_max_mp)
-    player_hp = player_max_hp
-    player_mp = player_max_mp
+    player_hp += round(player_max_hp / 2)
+    if player_hp > player_max_hp:
+        player_hp = player_max_hp
+    player_mp += round(player_max_mp / 2)
+    if player_mp > player_max_mp:
+        player_mp = player_max_mp
 
     # Final Boss
     print("You may have found that easy")
     time.sleep(1)
     print("But the biggest challenge is yet to come")
     time.sleep(1)
-    print("You must now go and face the final boss")
+    print("You must now face the final boss")
     time.sleep(1)
     print("You are being attacked by Deadly Sweets!")
     time.sleep(1)
